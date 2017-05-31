@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/_Layout.cshtml";
+
+    ViewBag.Title = "Lista de Produtos";
+}
+
+<h2>Lista de Produtos</h2>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://localhost/tdc/api/ProductsWebAPI/GetProductList",
+            type: "Get",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $("<tr><td>" + data[i].IdProduct + "</td><td>" + data[i].NmProduct + "</td><td>" + data[i].VlPrice + "</td></tr>").appendTo("#products");
+                }
+            },
+            error: function (msg) { alert(msg); }
+        });
+    });
+</script>
+<div id="body">
+    <section class="content-wrapper main-content">
+        <table id="products" class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayName("Código")</th>
+
+                    <th>@Html.DisplayName("Nome")</th>
+
+                    <th>@Html.DisplayName("Valor")</th>
+                </tr>
+            </thead>
+        </table>
+    </section>
+</div>
